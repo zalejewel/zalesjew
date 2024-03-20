@@ -1,0 +1,120 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+   <title> Try It Yourself </title>
+   <style type="text/css">
+      html,body {
+         background-image: linear-gradient(to right, gold, black);
+      }
+      .form-container {
+         margin: 20px;
+         padding: 15px;
+         border-radius: 10px;
+         background: transparent;
+         color: white;
+         box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3), 0 7px 21px 0 rgba(0, 0, 0, 0.20);
+      }
+      .input-cnt {
+         display: flex; /* display the icon and the input in a line */
+         margin-bottom: 15px;
+      }
+      .input-cnt:last-child {
+         margin-bottom: 0px;
+      }
+      .input-cnt > i {
+         min-width: 40px; /* set a minimum width for the icon */
+         padding: 10px; /* make sure the icon is centered vertically */
+         text-align: center; /* horizontally center the icon */
+         background: lightgrey;
+         border-top-left-radius: 20px;
+         border-bottom-left-radius: 20px;
+         color: #BAA217;
+      }
+      /* change styles when focused */
+      .input-cnt:hover > i {
+         background: #BAA217;
+         color: white;
+      }
+      /* style the inputs */
+      .input-cnt > input[type="text"], .input-cnt > input[type="password"] {
+         outline: none;
+         border: none;
+         padding: 10px;
+         border: 1px solid lightgrey;
+         border-top-right-radius: 20px;
+         border-bottom-right-radius: 20px;
+         width: 100%;
+      }
+      /* style the submit button */
+      .input-cnt > input[type="submit"] {
+         border: none;
+         border-radius: 20px;
+         outline: none;
+         width: 75%;
+         margin: 0 auto;
+         font-size: 105%;
+         padding: 8px;
+         color: #BAA217;
+         background: white;
+         transition-duration: .5s;
+      }
+      /* add a hover effect for the submit button */
+      .input-cnt > input[type="submit"]:hover {
+         color: #BAA217;
+         background:black;
+      }
+      h1{
+         text-align: center;
+         font-family: 'Courier New', Courier, monospace;
+      }
+      a{
+         color: black;
+
+      }
+   </style>
+</head>
+<body>
+   <div></div>
+   <h1>GOMINING</h1>
+   <h2 style="text-align: center"> Sign Up </h2>
+   <div class="form-container">
+
+     <div id="modal-signup" class="modal"> 
+      <div class="modal-content">
+      <form action="#">
+      	
+         <div class="input-cnt">
+            <i class="material-icons">person</i>
+            <input type="text" placeholder="Name" name="name" />
+         </div>
+         
+         <div class="input-cnt">
+            <i class="material-icons">face</i>
+            <input type="text" id = "signup-email" placeholder="Username" name="username" />
+         </div>
+         
+         <div class="input-cnt">
+            <i class="material-icons">email</i>
+            <input type="email" placeholder="Email" name="email" />
+         </div>
+         
+         <div class="input-cnt">
+            <i class="material-icons">lock</i>
+            <input type="password" id="signup-password" placeholder="Password" name="password" />
+         </div>
+         
+         <div class="input-cnt">
+            <input type="submit" value="Sign Up" />
+         </div>
+      </form>
+      
+   </div>
+     </div>
+   </div>
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">Login</a>
+   <script src="scripts/auth.js"></script>
+   <script src="scripts/index.js"></script>
+</body>
+</html>

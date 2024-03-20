@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Price Reward Earning Web</title>
+<style>
+  /* Add your CSS styles here */
+  .fade-out {
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+  <h1>Price Reward Earning Web</h1>
+  <p id="price">Price: $0</p>
+  <button id="increaseButton" onclick="increasePrice()">Increase Price</button>
+  <p id="rewardText" style="display: none;">Reward earned successfully!</p>
+  <input type="number" id="withdrawAmount" placeholder="Enter withdrawal amount">
+  <button onclick="withdraw()">Withdraw</button>
+
+  <script>
+    let price = localStorage.getItem('price') ? parseInt(localStorage.getItem('price')) : 0;
+    let clicks = 0;
+    let confirmations = 0;
+    let disableButton = false;
+
+    function increasePrice() {
+      if (disableButton) return;
+      if (confirmations < 5) {
+        clicks++;
+        if (clicks >= 10) {
+          document.getElementById('rewardText').style.display = 'block';
+          document.getElementById('increaseButton').style.display = 'none';
+          return;
+        }
+        price += 500;
+        document.getElementById('price').textContent = 'Price: $' + price;
+        localStorage.setItem('price', price);
+        disableButton = true;
+        document.getElementById('increaseButton').classList.add('fade-out');
+        setTimeout(() => {
+          disableButton = false;
+          document.getElementById('increaseButton').disabled = false;
+          document.getElementById('increaseButton').classList.remove('fade-out');
+        }, 5000);
+      } else {
+        document.getElementById('rewardText').style.display = 'block';
+        document.getElementById('increaseButton').style.display = 'none';
+      }
+    }
+
+    function withdraw() {
+      let withdrawAmount = parseInt(document.getElementById('withdrawAmount').value);
+      if (withdrawAmount <= price && withdrawAmount >= 1000) {
+        price -= withdrawAmount;
+        document.getElementById('price').textContent = 'Price: $' + price;
+        localStorage.setItem('price', price);
+        confirmations = 0; // Reset confirmations after withdrawal
+        document.getElementById('increaseButton').style.display = 'inline-block';
+        document.getElementById('rewardText').style.display = 'none';
+        document.getElementById('increaseButton').disabled = false;
+        alert("Withdrawal successful!");
+        window.open("https://www.google.com", "_blank");
+      } else {
+        alert('Withdrawal amount should be greater than or equal to $1000 and should not exceed available balance!');
+      }
+    }
+
+    window.onload = function() {
+      document.getElementById('price').textContent = 'Price: $' + price;
+    };
+  </script>
+</body>
+</html>

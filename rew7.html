@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="images/favicon.png" type="image/gif" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>Zales</title>
+
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      background-color: #d8c7c7;
+      color:#ff7171;
+    }
+    
+    #price {
+      font-size: 24px;
+      margin-top: 50px;
+    }
+    
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+    }
+    
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    @media screen and (max-width: 600px) {
+      #price {
+        font-size: 40px;
+      }
+      
+      button {
+        padding: 8px 16px;
+        font-size: 14px;
+      }
+    }
+    h1{
+      font: georgia,serif;
+    }
+    .fade-out {
+    opacity: 0.5;
+  }
+  .input {
+         outline: none;
+         padding: 15px;
+         border: 2px solid #ff7171;
+         border-radius: 10px;
+      }
+      input {
+         outline: none;
+         padding: 15px;
+         border: 2px solid #ff7171;
+         border-radius: 10px;
+      }
+      .input-cnt {
+         display: flex; /* display the icon and the input in a line */
+         margin-bottom: 15px;
+      }
+      .input-cnt:last-child {
+         margin-bottom: 0px;
+      }
+      .input-cnt > i {
+         min-width: 40px; /* set a minimum width for the icon */
+         padding: 10px; /* make sure the icon is centered vertically */
+         text-align: center; /* horizontally center the icon */
+         background: lightgrey;
+         border-top-left-radius: 20px;
+         border-bottom-left-radius: 20px;
+         color: #0076ff;
+      }
+  </style>
+</head>
+<body>
+  <body>
+    <h1>Price Reward Earning </h1>
+    <h2>Ice 1</h2>
+    <p id="price">Price: N0</p>
+    <button id="increaseButton" onclick="increasePrice()">Increase Price</button>
+    <p id="rewardText" style="display: none;">Reward earned successfully!</p><br/><p><p>
+    <input type="number" id="withdrawAmount" placeholder="Enter withdrawal amount"></p></p>
+    <button onclick="withdraw()">Withdraw</button>
+  
+    <script>
+      let price = localStorage.getItem('price') ? parseInt(localStorage.getItem('price')) : 0;
+      let clicks = 0;
+      let confirmations = 0;
+      let disableButton = false;
+  
+      function increasePrice() {
+        if (disableButton) return;
+        if (confirmations < 5) {
+          clicks++;
+          if (clicks >= 11) {
+            document.getElementById('rewardText').style.display = 'block';
+            document.getElementById('increaseButton').style.display = 'none';
+            return;
+          }
+          price += 2500;
+          document.getElementById('price').textContent = 'Price: N' + price;
+          localStorage.setItem('price', price);
+          disableButton = true;
+          document.getElementById('increaseButton').classList.add('fade-out');
+          setTimeout(() => {
+            disableButton = false;
+            document.getElementById('increaseButton').disabled = false;
+            document.getElementById('increaseButton').classList.remove('fade-out');
+          }, 5000);
+        } else {
+          document.getElementById('rewardText').style.display = 'block';
+          document.getElementById('increaseButton').style.display = 'none';
+        }
+      }
+  
+      function withdraw() {
+        let withdrawAmount = parseInt(document.getElementById('withdrawAmount').value);
+        if (withdrawAmount <= price && withdrawAmount >= 1000) {
+          price -= withdrawAmount;
+          document.getElementById('price').textContent = 'Price: N' + price;
+          localStorage.setItem('price', price);
+          confirmations = 0; // Reset confirmations after withdrawal
+          document.getElementById('increaseButton').style.display = 'inline-block';
+          document.getElementById('rewardText').style.display = 'none';
+          document.getElementById('increaseButton').disabled = false;
+          alert("Withdrawal successful!");
+          window.open("https://www.google.com", "_blank");
+        } else {
+          alert('Withdrawal amount should be greater than or equal to $1000 and should not exceed available balance!');
+        }
+      }
+  
+      window.onload = function() {
+        document.getElementById('price').textContent = 'Price: N' + price;
+      };
+    </script>
+  </body>
+</html>
